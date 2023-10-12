@@ -1,0 +1,22 @@
+name: Android Lint and Checkstyle 3. Name a file android-lint.yml
+on: pull_request
+
+jobs:
+  lint_and_checkstyle:
+  name: Lint and Checkstyle Code    
+  runs-on: ubuntu-latest    
+  steps:   
+    - name: Checkout repository   
+    uses: actions/checkout@v2  
+    - name: Set up JDK 17 1
+    uses: actions/setup-java@v2    
+    with:       
+      java-version: '17' 2
+      distribution: 'adopt'
+    
+    - name: Set execute permissions for gradlew   
+    run: chmod +x ./gradlew  
+    - name: Run Android Linter   
+    run: ./gradlew lintDebug    
+    - name: Run Checkstyle     
+    run: ./gradlew checkstyle
